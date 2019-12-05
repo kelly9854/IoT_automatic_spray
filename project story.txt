@@ -1,0 +1,24 @@
+Introduction1
+
+It is a bother for us to have to check often. But what if there is a machine that saves this trouble at regular intervals? We can solve problems caused by forgetting things as well as reduce something troublesome.
+
+Examples include the need to replace liquid soap in a bathroom. Without soap, people may experience discomfort and get complaints. Especially in public places and in service jobs like theater. So people often check the amount of soap residue and replace it when the amount is low. But two problem happens here. First, you often have to check the amount of soap. Second, you might miss or forget when to replace it.
+
+Problem Statement1
+
+Like this, having to check often or over a fixed period of time creates problems. That's why we solved these problems and created a small but helpful machine to better our lives.
+
+Using the above example, an alarm is triggered when the amount of liquid soap remains below a certain amount that you set. Then we can replace them without checking often. In addition to soap, it can be applied to other liquids. 
+
+-From Automatic Residual Checking System to Automatic Spray
+
+Further, thinking about how to develop this system and where to use it came to think of the Automatic Spray System. The system we designed in the past was a way to inform us only how much remains are and to notify us when there is less than a certain amount. But the spray system is to inform the environment during the specified time interval and spray liquid automatically.
+
+Introduction2
+
+Examples include the use automatic pesticide sprayer. We implement automatic spray system using interlock between the insecticide. When user activates the application, the system compares current temperature and humidity with setpoint. If the measured value reaches to setpoint, the insecticide starts being sprayed periodically.
+
+Problem Statement2
+
+India has many mosquitoes and has a population of many diseases associated with them because of the tropical climates. Especially, incidence of malaria per year is more than 1000 million and the way to avoid Malaria is only to keep away from mosquitoes. So, the products that are able to combat the pests or allow to avoid them are easy to success in India. Considering these conditions of India, we came out with a system that would be helpful to resolve these difficulties. 
+In addition to pesticide, it can be applied to other areas such as air freshener.

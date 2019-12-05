@@ -1,0 +1,113 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include "DHT.h"
+
+
+#define DHTPIN 2    
+#define DHTTYPE DHT11  
+
+
+LiquidCrystal_I2C lcd (0x27,16,2);
+DHT dht(DHTPIN, DHTTYPE);
+
+int Trig_Pin = 9;
+int Echo_Pin = 8;
+int Led1 = 10;
+int Led2 = 11;
+void setup() 
+{
+  Serial.begin(9600);
+  Serial2.begin(9600);
+  
+  pinMode(Echo_Pin,INPUT);
+  pinMode(Trig_Pin,OUTPUT);
+  pinMode(Led1,OUTPUT);
+  pinMode(Led2,OUTPUT);
+  lcd.begin(16,2);
+  lcd.init();
+  lcd.backlight();
+  
+  dht.begin();
+}
+
+void loop() 
+{
+  unsigned long duration; 
+  float distance;
+  //duration = the time from trig to echo
+  //distance = distance from top to liquid
+  int top = 15;
+  
+  float h = dht.readHumidity(); 
+  float t = dht.readTemperature();
+  if (isnan(h) || isnan(t)) 
+  { Serial.println("Failed to read from DHT sensor!"); }
+  
+  digitalWrite(Trig_Pin,LOW);
+  digitalWrite(Echo_Pin,LOW);
+  delayMicroseconds(10);
+  digitalWrite(Trig_Pin,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(Trig_Pin,LOW);
+
+  duration = pulseIn(Echo_Pin,HIGH);
+  distance = ((float)(340*duration)/10000)/2;
+
+//  Serial.print("Distance : ");
+//  Serial.println(distance);
+  Serial.print("Residue : ");
+  Serial.println(top-distance);
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print(" %\t");
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.println(" 'C ");
+
+  if((top-distance) < (top*0.1))
+  {
+    digitalWrite(Led2,HIGH);
+    lcd.clear();
+    lcd.setCursor(0,1);
+    lcd.print("Empty");
+    Serial.println("Empty");
+    Serial2.println('1');
+    delay(1000);
+    lcd.clear();
+  }
+  else {digitalWrite(Led2,LOW); Serial2.println('0'); delay(1000);}
+  
+  lcd.setCursor(0,0);
+  lcd.print("Temperature : ");
+  lcd.setCursor(0,1);
+  lcd.print(t);
+  delay(500);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Humidity : ");
+  lcd.setCursor(0,1);
+  lcd.print(h);
+  delay(500);
+  lcd.setCursor(0,0);
+  lcd.print("Residue : ");
+  lcd.setCursor(0,1);
+  lcd.print(top-distance);
+  delay(500);
+ 
+if(t >= 27 && t<=36)
+ {
+    digitalWrite(Led1,HIGH);
+    lcd.clear();
+  delay(500);
+    lcd.setCursor(0,0);
+   lcd.print("Spray the ");
+   lcd.setCursor(0,1);
+   lcd.print("pesticide!!");
+  delay(500);
+ }
+ else { 
+ digitalWrite(Led1,LOW);
+    delay(500);
+}  
+
+}
